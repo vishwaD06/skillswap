@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Leaderboard – SkillSwap | FODS in C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div class="brand-text">
+          <h2>SkillSwap</h2>
+          <span>FODS in C</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item"><i data-lucide="home"></i> Home</a>
+        <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="marketplace.html" class="nav-item"><i data-lucide="shopping-bag"></i> Marketplace</a>
+        <a href="requests.html" class="nav-item"><i data-lucide="git-pull-request"></i> Requests <span class="nav-badge" id="sidebar-req-badge">3</span></a>
+        <a href="leaderboard.html" class="nav-item active"><i data-lucide="trophy"></i> Leaderboard</a>
+        <a href="profile.html" class="nav-item"><i data-lucide="user"></i> My Profile</a>
+        <a href="data-structures.html" class="nav-item" style="color:#a5b4fc; font-weight:600;"><i data-lucide="cpu"></i> Data Structures Lab</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="server-badge">
+          <span class="status-dot"></span> Checking C Engine...
+        </div>
+        <span class="fods-tag">Fundamentals of Data Structures<br>Course Project in C</span>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search-input" placeholder="Search skills (C Trie Autocomplete)..." autocomplete="off">
+          <div id="autocomplete-dropdown" class="autocomplete-dropdown"></div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="global-undo-btn" class="undo-btn" title="Undo recent action using C LIFO Stack">
+            <i data-lucide="undo-2"></i> Undo
+          </button>
+          
+          <div class="user-profile-menu" onclick="App.openModal('user-switch-modal')">
+            <img id="header-user-avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="user-avatar" alt="User">
+            <div class="user-info">
+              <span id="header-user-name" class="user-name">Aarav Sharma</span>
+              <span id="header-user-dept" class="user-dept">CS • Year 3</span>
+            </div>
+            <i data-lucide="chevron-down" style="color:var(--text-muted); font-size:0.9rem;"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Title and Formula Banner -->
+        <div style="background:white; border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:28px 32px; margin-bottom:28px; box-shadow:var(--shadow-sm);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+            <div>
+              <div style="display:inline-flex; align-items:center; gap:6px; background:#fef3c7; color:#b45309; padding:4px 10px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; margin-bottom:8px;">
+                <i data-lucide="cpu" style="width:14px;"></i> Powered by Binary Max-Heap in C
+              </div>
+              <h1 style="font-size:2rem; margin-bottom:4px;">Mentor Leaderboard</h1>
+              <p style="color:var(--text-muted); max-width:640px; font-size:0.92rem;">
+                Rankings are computed dynamically using a binary max-heap priority queue in the C backend engine. Insertion takes O(log N) time and extract-max yields the highest-impact student mentors.
+              </p>
+            </div>
+            <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px 18px; border-radius:var(--radius-lg); font-size:0.82rem;">
+              <span style="font-weight:700; color:var(--text-main);">Scoring Formula:</span><br>
+              <code style="color:var(--primary-dark); font-weight:600;">(Rating × 20) + (Sessions × 10) + (Reviews × 5)</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top 3 Podium Cards -->
+        <div class="grid-3" id="podium-container" style="margin-bottom:28px;">
+          <!-- Filled dynamically -->
+        </div>
+
+        <!-- Leaderboard Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="list-ordered" style="color:var(--primary);"></i> Complete Campus Rankings
+            </div>
+            <span class="badge badge-purple" id="heap-nodes-count">Max-Heap Size: 16 Mentors</span>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+              <thead>
+                <tr style="border-bottom:2px solid var(--border-color); color:var(--text-muted); font-size:0.8rem; text-transform:uppercase;">
+                  <th style="padding:12px 16px;">Rank</th>
+                  <th style="padding:12px 16px;">Mentor</th>
+                  <th style="padding:12px 16px;">Department</th>
+                  <th style="padding:12px 16px;">Primary Skill</th>
+                  <th style="padding:12px 16px;">Rating</th>
+                  <th style="padding:12px 16px;">Sessions</th>
+                  <th style="padding:12px 16px;">Heap Score</th>
+                  <th style="padding:12px 16px; text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-table-body">
+                <!-- Filled dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- User Switch Modal -->
+  <div id="user-switch-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Switch Demo Profile</h3>
+        <button class="modal-close" onclick="App.closeModal('user-switch-modal')">&times;</button>
+      </div>
+      <div id="user-switch-list" style="display:flex; flex-direction:column; gap:8px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+
+    async function loadLeaderboard() {
+      const data = await SkillSwapAPI.getLeaderboard();
+      const list = data && data.leaderboard ? data.leaderboard : [];
+
+      document.getElementById('heap-nodes-count').textContent = `Max-Heap Size: ${list.length} Mentors`;
+
+      // Top 3 Podium
+      const podium = document.getElementById('podium-container');
+      if (podium && list.length >= 3) {
+        const top3 = [list[1], list[0], list[2]]; // Order: #2, #1, #3 for visual podium
+        const medals = ['🥈 Silver Mentor', '🥇 Gold Mentor', '🥉 Bronze Mentor'];
+        const borderGlow = ['#cbd5e1', '#f59e0b', '#b45309'];
+
+        podium.innerHTML = top3.map((m, idx) => `
+          <div class="card" style="text-align:center; padding:28px 20px; border-top:4px solid ${borderGlow[idx]};">
+            <div style="font-size:0.85rem; font-weight:700; color:${borderGlow[idx]}; margin-bottom:12px;">
+              ${medals[idx]}
+            </div>
+            <h2 style="font-size:1.4rem; margin-bottom:4px;">${m.name}</h2>
+            <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">
+              ${m.dept} • Year ${m.year}
+            </div>
+            <div style="background:#f8fafc; padding:10px; border-radius:var(--radius-md); margin-bottom:14px;">
+              <strong style="color:var(--primary); font-size:1.3rem;">${m.score.toFixed(1)}</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Heap Priority Score</div>
+            </div>
+            <div style="display:flex; justify-content:center; gap:12px; font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+              <span>★ <strong>${m.rating.toFixed(2)}</strong></span>
+              <span>• <strong>${m.completed_sessions}</strong> sessions</span>
+            </div>
+            <a href="profile.html?id=${m.student_id}" class="btn btn-secondary btn-sm" style="width:100%;">
+              View Profile
+            </a>
+          </div>
+        `).join('');
+      }
+
+      // Complete Table
+      const tbody = document.getElementById('leaderboard-table-body');
+      if (tbody) {
+        tbody.innerHTML = list.map((m, i) => `
+          <tr style="border-bottom:1px solid var(--border-light); transition:background 0.15s;">
+            <td style="padding:14px 16px; font-weight:800; font-size:1rem; color:${i < 3 ? 'var(--primary)' : 'var(--text-muted)'};">
+              #${m.rank || (i + 1)}
+            </td>
+            <td style="padding:14px 16px; font-weight:700; color:var(--text-main);">
+              ${m.name}
+            </td>
+            <td style="padding:14px 16px; color:var(--text-muted); font-size:0.85rem;">
+              ${m.dept} (Yr ${m.year})
+            </td>
+            <td style="padding:14px 16px;">
+              <span class="badge badge-purple" style="font-size:0.75rem;">${m.top_skill}</span>
+            </td>
+            <td style="padding:14px 16px; font-weight:700; color:var(--warning);">
+              ★ ${m.rating.toFixed(2)}
+            </td>
+            <td style="padding:14px 16px; font-weight:600;">
+              ${m.completed_sessions}
+            </td>
+            <td style="padding:14px 16px; font-weight:800; color:var(--primary);">
+              ${m.score.toFixed(1)}
+            </td>
+            <td style="padding:14px 16px; text-align:right;">
+              <a href="profile.html?id=${m.student_id}" class="btn btn-secondary btn-sm">Profile</a>
+            </td>
+          </tr>
+        `).join('');
+      }
+      lucide.createIcons();
+    }
+
+    // Populate user switcher
+    async function populateUserSwitcher() {
+      const students = await SkillSwapAPI.getStudents();
+      const list = document.getElementById('user-switch-list');
+      if (!list) return;
+
+      list.innerHTML = students.map(s => `
+        <div onclick="App.switchUser(${s.id})" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; background:white;">
+          <img src="${s.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:0.88rem;">${s.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${s.dept} • Year ${s.year}</div>
+          </div>
+          <span class="badge badge-primary" style="font-size:0.7rem;">Select</span>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLeaderboard();
+      populateUserSwitcher();
+    });
+  </script>
+</body>
+</html>

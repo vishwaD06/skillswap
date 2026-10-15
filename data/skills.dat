@@ -1,0 +1,26 @@
+# SkillSwap Skills Record File
+# ID|Name|Category|MentorID|MentorName|MentorDept|MentorYear|Proficiency|Format|Rating|CompletedSessions|Popularity
+1|C Programming|Programming|1|Aarav Sharma|Computer Science|3|Expert|1-on-1|4.95|14|98
+2|Data Structures and Algorithms|Programming|1|Aarav Sharma|Computer Science|3|Advanced|1-on-1|4.95|12|95
+3|React|Web Development|2|Priya Patel|Information Tech|4|Expert|1-on-1|4.90|21|99
+4|Web Development|Web Development|2|Priya Patel|Information Tech|4|Advanced|Online|4.88|18|96
+5|Python|Programming|3|Rohan Verma|AI & Robotics|3|Expert|Online|4.85|11|94
+6|Machine Learning|AI/ML|3|Rohan Verma|AI & Robotics|3|Advanced|1-on-1|4.86|9|92
+7|UI/UX Design|Design|4|Ananya Iyer|Design & Media|2|Expert|1-on-1|4.92|16|97
+8|Graphic Design|Design|4|Ananya Iyer|Design & Media|2|Advanced|Online|4.90|12|88
+9|C++|Programming|5|Kavya Nair|Computer Science|3|Expert|1-on-1|4.78|9|91
+10|Data Structures and Algorithms|Programming|5|Kavya Nair|Computer Science|3|Expert|1-on-1|4.85|8|93
+11|Data Analysis|Data Science|6|Vikram Malhotra|Data Science|3|Expert|Online|4.88|18|89
+12|Python|Programming|6|Vikram Malhotra|Data Science|3|Advanced|1-on-1|4.84|15|87
+13|Public Speaking|Communication|7|Neha Sundaram|Electronics & Comm|4|Expert|In-Person|4.95|13|93
+14|Interview Prep|Communication|7|Neha Sundaram|Electronics & Comm|4|Advanced|1-on-1|4.92|10|90
+15|Cybersecurity|Others|8|Siddharth Rao|Information Tech|2|Advanced|1-on-1|4.80|8|86
+16|Linux Shell|Programming|8|Siddharth Rao|Information Tech|2|Expert|Online|4.82|7|84
+17|Video Editing|Video Editing|9|Diya Sen|Design & Media|3|Expert|1-on-1|4.90|15|91
+18|Photography|Design|9|Diya Sen|Design & Media|3|Advanced|In-Person|4.88|11|85
+19|Java|Programming|10|Arjun Reddy|Computer Science|4|Expert|Online|4.82|12|89
+20|Backend Architecture|Web Development|10|Arjun Reddy|Computer Science|4|Advanced|1-on-1|4.80|9|88
+21|Web Development|Web Development|11|Tanvi Joshi|Information Tech|2|Intermediate|1-on-1|4.75|7|82
+22|Photography|Design|12|Kabir Kapoor|Mechanical Eng|3|Expert|In-Person|4.86|10|86
+23|Machine Learning|AI/ML|13|Meera Deshmukh|AI & Robotics|4|Expert|1-on-1|4.96|24|99
+24|DevOps|Others|15|Rhea Bannerjee|Computer Science|3|Advanced|Online|4.89|17|90

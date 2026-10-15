@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Behind SkillSwap: Data Structures in C | FODS Academic Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div class="brand-text">
+          <h2>SkillSwap</h2>
+          <span>FODS in C</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item"><i data-lucide="home"></i> Home</a>
+        <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="marketplace.html" class="nav-item"><i data-lucide="shopping-bag"></i> Marketplace</a>
+        <a href="requests.html" class="nav-item"><i data-lucide="git-pull-request"></i> Requests <span class="nav-badge" id="sidebar-req-badge">3</span></a>
+        <a href="leaderboard.html" class="nav-item"><i data-lucide="trophy"></i> Leaderboard</a>
+        <a href="profile.html" class="nav-item"><i data-lucide="user"></i> My Profile</a>
+        <a href="data-structures.html" class="nav-item active" style="color:#a5b4fc; font-weight:700;"><i data-lucide="cpu"></i> Data Structures Lab</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="server-badge">
+          <span class="status-dot"></span> Checking C Engine...
+        </div>
+        <span class="fods-tag">Fundamentals of Data Structures<br>Course Project in C</span>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search-input" placeholder="Search skills (C Trie Autocomplete)..." autocomplete="off">
+          <div id="autocomplete-dropdown" class="autocomplete-dropdown"></div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="global-undo-btn" class="undo-btn" title="Undo recent action using C LIFO Stack">
+            <i data-lucide="undo-2"></i> Undo
+          </button>
+          
+          <div class="user-profile-menu" onclick="App.openModal('user-switch-modal')">
+            <img id="header-user-avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="user-avatar" alt="User">
+            <div class="user-info">
+              <span id="header-user-name" class="user-name">Aarav Sharma</span>
+              <span id="header-user-dept" class="user-dept">CS • Year 3</span>
+            </div>
+            <i data-lucide="chevron-down" style="color:var(--text-muted); font-size:0.9rem;"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Lab Header Banner -->
+        <div style="background:linear-gradient(135deg, #090d16, #1e1b4b); color:white; border-radius:var(--radius-xl); padding:32px 36px; margin-bottom:28px; box-shadow:var(--shadow-lg);">
+          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(99,102,241,0.25); border:1px solid #6366f1; padding:4px 12px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; color:#a5b4fc; text-transform:uppercase; margin-bottom:12px;">
+            <i data-lucide="terminal" style="width:14px;"></i> FODS (Fundamentals of Data Structures in C)
+          </div>
+          <h1 style="font-size:2.4rem; color:white; margin-bottom:6px;">Behind SkillSwap: Data Structures in C</h1>
+          <p style="color:#cbd5e1; max-width:760px; font-size:1rem; line-height:1.6;">
+            SkillSwap is powered by genuine C implementations of all 10 core data structures and algorithms required for academic evaluation. Click through the data structures below to inspect real C source code, theoretical vs. observed time complexities, and live benchmarks executed directly by the C engine.
+          </p>
+        </div>
+
+        <!-- 10 Data Structure Selector Buttons Grid -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:28px;">
+          <button class="ds-tab-btn active" data-ds="linked_list" onclick="DSLab.selectDS('linked_list')">
+            <i data-lucide="list"></i> 1. Linked List
+          </button>
+          <button class="ds-tab-btn" data-ds="hash_table" onclick="DSLab.selectDS('hash_table')">
+            <i data-lucide="hash"></i> 2. Hash Table
+          </button>
+          <button class="ds-tab-btn" data-ds="queue" onclick="DSLab.selectDS('queue')">
+            <i data-lucide="fast-forward"></i> 3. FIFO Queue
+          </button>
+          <button class="ds-tab-btn" data-ds="stack" onclick="DSLab.selectDS('stack')">
+            <i data-lucide="layers"></i> 4. LIFO Stack
+          </button>
+          <button class="ds-tab-btn" data-ds="graph" onclick="DSLab.selectDS('graph')">
+            <i data-lucide="share-2"></i> 5. Graph (Adj List)
+          </button>
+          <button class="ds-tab-btn" data-ds="bst" onclick="DSLab.selectDS('bst')">
+            <i data-lucide="git-commit"></i> 6. BST Search Tree
+          </button>
+          <button class="ds-tab-btn" data-ds="heap" onclick="DSLab.selectDS('heap')">
+            <i data-lucide="crown"></i> 7. Max-Heap
+          </button>
+          <button class="ds-tab-btn" data-ds="trie" onclick="DSLab.selectDS('trie')">
+            <i data-lucide="search"></i> 8. Trie Prefix Tree
+          </button>
+          <button class="ds-tab-btn" data-ds="dynarray" onclick="DSLab.selectDS('dynarray')">
+            <i data-lucide="maximize-2"></i> 9. Dynamic Array
+          </button>
+          <button class="ds-tab-btn" data-ds="sorting" onclick="DSLab.selectDS('sorting')">
+            <i data-lucide="arrow-down-up"></i> 10. Quicksort & BSearch
+          </button>
+        </div>
+
+        <!-- Main Details Card -->
+        <div class="card" style="margin-bottom:28px;">
+          <div class="card-header" style="border-bottom:1px solid var(--border-color); padding-bottom:18px;">
+            <div>
+              <h2 id="ds-title" style="font-size:1.6rem; color:var(--text-main);">Linked List (Singly Linked)</h2>
+              <div style="font-size:0.85rem; color:var(--primary); font-weight:600; margin-top:4px;">
+                C Implementation Source File: <code id="ds-file" style="background:#e0e7ff; color:var(--primary-dark); padding:2px 8px; border-radius:4px;">backend/linked_list.c</code>
+              </div>
+            </div>
+            <span class="badge badge-success">Compiled & Verified in C</span>
+          </div>
+
+          <!-- Real World Project Role -->
+          <div style="margin:20px 0;">
+            <div style="font-weight:700; font-size:0.85rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">
+              Real-World Application within SkillSwap
+            </div>
+            <p id="ds-role" style="font-size:1rem; color:var(--text-main); line-height:1.6;">
+              Dynamic student records and offered skill entries storage without contiguous memory restrictions.
+            </p>
+          </div>
+
+          <!-- Time Complexity Grid -->
+          <div style="margin-bottom:24px;">
+            <div style="font-weight:700; font-size:0.85rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">
+              Time & Space Complexity
+            </div>
+            <div class="grid-4">
+              <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted);">Insertion</div>
+                <div id="tc-insert" style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:1.1rem; color:var(--primary); margin-top:4px;">O(1)</div>
+              </div>
+              <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted);">Search / Lookup</div>
+                <div id="tc-search" style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:1.1rem; color:var(--primary); margin-top:4px;">O(N)</div>
+              </div>
+              <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted);">Deletion</div>
+                <div id="tc-delete" style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:1.1rem; color:var(--primary); margin-top:4px;">O(N)</div>
+              </div>
+              <div style="background:#f8fafc; border:1px solid var(--border-color); padding:12px; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted);">Space Overhead</div>
+                <div id="tc-space" style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:1.1rem; color:var(--primary); margin-top:4px;">O(N)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Live Visualizer & Benchmark Box -->
+          <div style="margin-bottom:28px;">
+            <div style="font-weight:700; font-size:0.85rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">
+              Interactive Demonstration & C Benchmark
+            </div>
+            <div id="ds-visualizer-canvas" style="border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:20px; background:white;">
+              <!-- Rendered by data-structures.js -->
+            </div>
+          </div>
+
+          <!-- C Source Code Snippet Viewer -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div style="font-weight:700; font-size:0.85rem; text-transform:uppercase; color:var(--text-muted);">
+                Actual C Source Code (From Modular Codebase)
+              </div>
+              <button onclick="copyCodeSnippet()" class="btn btn-secondary btn-sm">
+                <i data-lucide="copy"></i> Copy Code
+              </button>
+            </div>
+            <pre style="background:#0f172a; color:#f8fafc; padding:20px; border-radius:var(--radius-md); overflow-x:auto; font-size:0.88rem; line-height:1.5;"><code id="ds-code-snippet">// C Code will render here</code></pre>
+          </div>
+        </div>
+
+        <!-- Academic Viva Reference Guide Card -->
+        <div class="card" style="background:#faf5ff; border:1px solid #e9d5ff;">
+          <div class="card-header">
+            <div class="card-title" style="color:#581c87;">
+              <i data-lucide="graduation-cap"></i> FODS Viva Examination Quick Reference
+            </div>
+          </div>
+          <p style="font-size:0.92rem; color:#4c1d95; line-height:1.6; margin-bottom:12px;">
+            When presenting to your course professor or viva evaluators:
+          </p>
+          <ul style="color:#581c87; font-size:0.88rem; padding-left:20px; display:flex; flex-direction:column; gap:8px;">
+            <li><strong>Why separate chaining for Hash Tables?</strong> Handles arbitrary collisions cleanly via linked list buckets with O(1) average lookup.</li>
+            <li><strong>Why Max-Heap for the Leaderboard?</strong> Extracting the top-K mentors runs in O(K log N) without needing full O(N log N) sorting of all students.</li>
+            <li><strong>Why Trie for Skill Autocomplete?</strong> Prefix matching runs in O(L) proportional only to prefix character length, independent of total database size.</li>
+            <li><strong>Why Adjacency List for Graphs?</strong> College peer networks are sparse; adjacency list uses O(V + E) space compared to O(V²) for an adjacency matrix.</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- User Switch Modal -->
+  <div id="user-switch-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Switch Demo Profile</h3>
+        <button class="modal-close" onclick="App.closeModal('user-switch-modal')">&times;</button>
+      </div>
+      <div id="user-switch-list" style="display:flex; flex-direction:column; gap:8px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <style>
+    .ds-tab-btn {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .ds-tab-btn:hover {
+      background: var(--bg-card-subtle);
+      border-color: #cbd5e1;
+    }
+    .ds-tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+  </style>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/data-structures.js"></script>
+  <script>
+    lucide.createIcons();
+
+    function copyCodeSnippet() {
+      const code = document.getElementById('ds-code-snippet').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        App.showToast("C source code copied to clipboard!", "success");
+      });
+    }
+
+    // Populate user switcher
+    async function populateUserSwitcher() {
+      const students = await SkillSwapAPI.getStudents();
+      const list = document.getElementById('user-switch-list');
+      if (!list) return;
+
+      list.innerHTML = students.map(s => `
+        <div onclick="App.switchUser(${s.id})" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; background:white;">
+          <img src="${s.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:0.88rem;">${s.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${s.dept} • Year ${s.year}</div>
+          </div>
+          <span class="badge badge-primary" style="font-size:0.7rem;">Select</span>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      populateUserSwitcher();
+    });
+  </script>
+</body>
+</html>

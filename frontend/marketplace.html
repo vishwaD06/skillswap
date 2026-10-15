@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Marketplace – SkillSwap | FODS in C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div class="brand-text">
+          <h2>SkillSwap</h2>
+          <span>FODS in C</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item"><i data-lucide="home"></i> Home</a>
+        <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="marketplace.html" class="nav-item active"><i data-lucide="shopping-bag"></i> Marketplace</a>
+        <a href="requests.html" class="nav-item"><i data-lucide="git-pull-request"></i> Requests <span class="nav-badge" id="sidebar-req-badge">3</span></a>
+        <a href="leaderboard.html" class="nav-item"><i data-lucide="trophy"></i> Leaderboard</a>
+        <a href="profile.html" class="nav-item"><i data-lucide="user"></i> My Profile</a>
+        <a href="data-structures.html" class="nav-item" style="color:#a5b4fc; font-weight:600;"><i data-lucide="cpu"></i> Data Structures Lab</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="server-badge">
+          <span class="status-dot"></span> Checking C Engine...
+        </div>
+        <span class="fods-tag">Fundamentals of Data Structures<br>Course Project in C</span>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search-input" placeholder="Search skills (C Trie Autocomplete)..." autocomplete="off">
+          <div id="autocomplete-dropdown" class="autocomplete-dropdown"></div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="global-undo-btn" class="undo-btn" title="Undo recent action using C LIFO Stack">
+            <i data-lucide="undo-2"></i> Undo
+          </button>
+          
+          <div class="user-profile-menu" onclick="App.openModal('user-switch-modal')">
+            <img id="header-user-avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="user-avatar" alt="User">
+            <div class="user-info">
+              <span id="header-user-name" class="user-name">Aarav Sharma</span>
+              <span id="header-user-dept" class="user-dept">CS • Year 3</span>
+            </div>
+            <i data-lucide="chevron-down" style="color:var(--text-muted); font-size:0.9rem;"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Title & Subtitle -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h1 style="font-size:2rem; margin-bottom:4px;">Skill Marketplace</h1>
+            <p style="color:var(--text-muted);">Explore 24+ skills offered by verified peer mentors across all academic departments.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Sort By:</span>
+            <select id="market-sort" onchange="filterAndRenderSkills()" style="padding:8px 12px; font-size:0.88rem;">
+              <option value="popularity">Popularity (High to Low)</option>
+              <option value="rating">Rating (Quicksort in C)</option>
+              <option value="name">Skill Name (A - Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div style="background:white; border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:20px; margin-bottom:24px; box-shadow:var(--shadow-sm);">
+          <!-- Category Pills -->
+          <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid var(--border-light);" id="category-pills">
+            <button class="cat-pill active" data-cat="all" onclick="selectCategory('all')">All Categories</button>
+            <button class="cat-pill" data-cat="Programming" onclick="selectCategory('Programming')">Programming</button>
+            <button class="cat-pill" data-cat="Web Development" onclick="selectCategory('Web Development')">Web Dev</button>
+            <button class="cat-cat" data-cat="AI/ML" onclick="selectCategory('AI/ML')">AI / ML</button>
+            <button class="cat-pill" data-cat="Design" onclick="selectCategory('Design')">Design & UI</button>
+            <button class="cat-pill" data-cat="Communication" onclick="selectCategory('Communication')">Communication</button>
+            <button class="cat-pill" data-cat="Video Editing" onclick="selectCategory('Video Editing')">Video Editing</button>
+            <button class="cat-pill" data-cat="Data Science" onclick="selectCategory('Data Science')">Data Science</button>
+            <button class="cat-pill" data-cat="Others" onclick="selectCategory('Others')">Others</button>
+          </div>
+
+          <!-- Secondary Filters Row -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+            <div>
+              <label style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:4px;">Proficiency</label>
+              <select id="filter-proficiency" onchange="filterAndRenderSkills()" style="width:100%; font-size:0.85rem; padding:8px 10px;">
+                <option value="all">All Levels</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Expert">Expert</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:4px;">Department</label>
+              <select id="filter-dept" onchange="filterAndRenderSkills()" style="width:100%; font-size:0.85rem; padding:8px 10px;">
+                <option value="all">All Departments</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Information Tech">Information Technology</option>
+                <option value="AI & Robotics">AI & Robotics</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Design & Media">Design & Media</option>
+                <option value="Electronics & Comm">Electronics & Comm</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:4px;">Learning Format</label>
+              <select id="filter-format" onchange="filterAndRenderSkills()" style="width:100%; font-size:0.85rem; padding:8px 10px;">
+                <option value="all">All Formats</option>
+                <option value="1-on-1">1-on-1</option>
+                <option value="Online">Online Video</option>
+                <option value="In-Person">In-Person</option>
+              </select>
+            </div>
+
+            <div style="display:flex; align-items:flex-end;">
+              <button onclick="resetFilters()" class="btn btn-secondary btn-sm" style="width:100%;">
+                <i data-lucide="rotate-ccw"></i> Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills Grid Container -->
+        <div class="grid-3" id="marketplace-grid">
+          <!-- Filled dynamically -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="marketplace-empty" style="display:none; text-align:center; padding:60px 20px; background:white; border-radius:var(--radius-xl); border:1px dashed var(--border-color); margin-top:20px;">
+          <i data-lucide="search-x" style="font-size:3rem; color:var(--text-muted); margin-bottom:12px;"></i>
+          <h3>No matching skills found</h3>
+          <p style="color:var(--text-muted); max-width:400px; margin:0 auto 16px auto;">Try adjusting your category, proficiency level, or department filters.</p>
+          <button onclick="resetFilters()" class="btn btn-primary btn-sm">Clear All Filters</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Request Exchange Modal -->
+  <div id="request-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Request Skill Exchange</h3>
+        <button class="modal-close" onclick="App.closeModal('request-modal')">&times;</button>
+      </div>
+      <form onsubmit="handleSendRequestSubmit(event)">
+        <input type="hidden" id="req-mentor-id">
+        <input type="hidden" id="req-skill-name">
+
+        <div style="background:var(--bg-main); border:1px solid var(--border-color); padding:14px; border-radius:var(--radius-md); margin-bottom:16px;">
+          <div style="font-size:0.85rem; color:var(--text-muted);">Skill Requested:</div>
+          <div style="font-size:1.1rem; font-weight:700; color:var(--primary);" id="req-modal-skill-title">C Programming</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">
+            Mentor: <strong id="req-modal-mentor-name">Aarav Sharma</strong>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Proposed Session Time & Location</label>
+          <input type="text" id="req-proposed-time" placeholder="e.g. Wednesday 4:00 PM (Library / Online)" required>
+        </div>
+
+        <div class="form-group">
+          <label>Message to Mentor (Optional)</label>
+          <textarea id="req-message" rows="3" placeholder="Explain what topics you'd like to focus on or what skill you can offer in return..."></textarea>
+        </div>
+
+        <div style="font-size:0.78rem; color:#4338ca; background:#e0e7ff; padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:16px;">
+          <i data-lucide="info" style="display:inline; width:14px; vertical-align:middle;"></i> Request will be placed in the mentor's <strong>FIFO Queue</strong> and pushed to the C Action Stack.
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">
+          Submit Learning Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- User Switch Modal -->
+  <div id="user-switch-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Switch Demo Profile</h3>
+        <button class="modal-close" onclick="App.closeModal('user-switch-modal')">&times;</button>
+      </div>
+      <div id="user-switch-list" style="display:flex; flex-direction:column; gap:8px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <style>
+    .cat-pill {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .cat-pill:hover {
+      background: #e2e8f0;
+    }
+    .cat-pill.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+  </style>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+
+    let allSkills = [];
+    let selectedCategory = 'all';
+
+    async function loadMarketplace() {
+      allSkills = await SkillSwapAPI.getSkills();
+
+      // Check URL parameters for preset search or category
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchParam = urlParams.get('search');
+      if (searchParam) {
+        document.getElementById('global-search-input').value = searchParam;
+      }
+      filterAndRenderSkills();
+    }
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.cat === cat);
+      });
+      filterAndRenderSkills();
+    }
+
+    function resetFilters() {
+      selectedCategory = 'all';
+      document.getElementById('filter-proficiency').value = 'all';
+      document.getElementById('filter-dept').value = 'all';
+      document.getElementById('filter-format').value = 'all';
+      document.getElementById('global-search-input').value = '';
+      selectCategory('all');
+    }
+
+    function filterAndRenderSkills() {
+      const searchVal = document.getElementById('global-search-input').value.trim().toLowerCase();
+      const profVal = document.getElementById('filter-proficiency').value;
+      const deptVal = document.getElementById('filter-dept').value;
+      const fmtVal = document.getElementById('filter-format').value;
+      const sortVal = document.getElementById('market-sort').value;
+
+      let filtered = allSkills.filter(s => {
+        if (selectedCategory !== 'all' && s.category.toLowerCase() !== selectedCategory.toLowerCase()) return false;
+        if (profVal !== 'all' && s.proficiency !== profVal) return false;
+        if (deptVal !== 'all' && s.mentor_dept !== deptVal) return false;
+        if (fmtVal !== 'all' && s.format !== fmtVal) return false;
+        if (searchVal && !s.name.toLowerCase().includes(searchVal) && !s.mentor_name.toLowerCase().includes(searchVal)) return false;
+        return true;
+      });
+
+      // Sorting
+      if (sortVal === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating); // Quicksort logic
+      } else if (sortVal === 'name') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        filtered.sort((a, b) => b.popularity - a.popularity);
+      }
+
+      const grid = document.getElementById('marketplace-grid');
+      const emptyState = document.getElementById('marketplace-empty');
+
+      if (filtered.length === 0) {
+        grid.style.display = 'none';
+        emptyState.style.display = 'block';
+      } else {
+        grid.style.display = 'grid';
+        emptyState.style.display = 'none';
+
+        grid.innerHTML = filtered.map(s => `
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <span class="badge badge-purple">${s.category}</span>
+                <span style="font-weight:700; color:var(--warning); font-size:0.9rem;">★ ${s.rating.toFixed(2)}</span>
+              </div>
+              <h3 style="font-size:1.25rem; margin-bottom:6px;">${s.name}</h3>
+              <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px; display:flex; gap:6px; align-items:center;">
+                <span class="badge badge-primary" style="font-size:0.7rem;">${s.proficiency}</span>
+                <span>• ${s.format}</span>
+              </div>
+              <div style="background:#f8fafc; border:1px solid var(--border-light); padding:10px 12px; border-radius:var(--radius-md); margin-bottom:16px;">
+                <div style="font-weight:700; font-size:0.88rem; color:var(--text-main);">${s.mentor_name}</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">${s.mentor_dept} • Year ${s.mentor_year}</div>
+                <div style="font-size:0.75rem; color:var(--success); font-weight:600; margin-top:2px;">
+                  ✓ ${s.completed_sessions} sessions completed
+                </div>
+              </div>
+            </div>
+            
+            <div style="padding-top:14px; border-top:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center;">
+              <a href="profile.html?id=${s.mentor_id}" style="font-size:0.85rem; color:var(--primary); font-weight:600;">View Profile</a>
+              <button onclick="openRequestModal(${s.mentor_id}, '${s.name.replace(/'/g, "\\'")}', '${s.mentor_name.replace(/'/g, "\\'")}')" class="btn btn-primary btn-sm">
+                Request Skill
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+      lucide.createIcons();
+    }
+
+    function openRequestModal(mentorId, skillName, mentorName) {
+      const user = App.currentUser;
+      if (user && user.id === mentorId) {
+        App.showToast("You cannot request an exchange with yourself!", "warning");
+        return;
+      }
+      document.getElementById('req-mentor-id').value = mentorId;
+      document.getElementById('req-skill-name').value = skillName;
+      document.getElementById('req-modal-skill-title').textContent = skillName;
+      document.getElementById('req-modal-mentor-name').textContent = mentorName;
+      document.getElementById('req-proposed-time').value = 'Thursday 5:00 PM (Campus Lab)';
+      App.openModal('request-modal');
+    }
+
+    async function handleSendRequestSubmit(e) {
+      e.preventDefault();
+      const user = App.currentUser;
+      const mentorId = parseInt(document.getElementById('req-mentor-id').value);
+      const skillName = document.getElementById('req-skill-name').value;
+      const proposedTime = document.getElementById('req-proposed-time').value;
+      const message = document.getElementById('req-message').value;
+      const mentorName = document.getElementById('req-modal-mentor-name').textContent;
+
+      try {
+        await SkillSwapAPI.sendRequest({
+          requester_id: user.id,
+          requester_name: user.name,
+          mentor_id: mentorId,
+          mentor_name: mentorName,
+          skill_name: skillName,
+          proposed_time: proposedTime,
+          message: message
+        });
+
+        App.showToast(`Request for '${skillName}' sent to ${mentorName}! (Added to FIFO Queue)`, 'success');
+        App.closeModal('request-modal');
+      } catch (err) {
+        App.showToast(err.message || 'Error sending request', 'error');
+      }
+    }
+
+    // Populate user switcher
+    async function populateUserSwitcher() {
+      const students = await SkillSwapAPI.getStudents();
+      const list = document.getElementById('user-switch-list');
+      if (!list) return;
+
+      list.innerHTML = students.map(s => `
+        <div onclick="App.switchUser(${s.id})" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; background:white;">
+          <img src="${s.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:0.88rem;">${s.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${s.dept} • Year ${s.year}</div>
+          </div>
+          <span class="badge badge-primary" style="font-size:0.7rem;">Select</span>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMarketplace();
+      populateUserSwitcher();
+    });
+  </script>
+</body>
+</html>

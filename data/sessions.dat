@@ -1,0 +1,10 @@
+# SkillSwap Sessions Record File
+# ID|RequestID|MentorID|MentorName|MenteeID|MenteeName|SkillName|Date|DurationMins|Status|HasReview|Rating|Feedback
+1|5|3|Rohan Verma|7|Neha Sundaram|Python|2026-10-05|60|COMPLETED|1|5.00|Rohan is an incredible teacher! Explained Python list comprehensions and file parsing with crystal clarity.
+2|7|7|Neha Sundaram|6|Vikram Malhotra|Public Speaking|2026-10-04|90|COMPLETED|1|5.00|Neha's tips on vocal projection and slide cadence transformed my presentation! Highly recommended mentor.
+3|2|1|Aarav Sharma|4|Ananya Iyer|Data Structures and Algorithms|2026-10-12|60|SCHEDULED|0|0.00|Scheduled session: BST insertion and traversal walkthrough.
+4|3|2|Priya Patel|1|Aarav Sharma|React|2026-10-13|75|SCHEDULED|0|0.00|Scheduled session: Building modular components and hook patterns.
+5|0|13|Meera Deshmukh|3|Rohan Verma|Machine Learning|2026-10-01|90|COMPLETED|1|4.95|Meera explained convolutional backprop in depth. Truly a masterclass!
+6|0|4|Ananya Iyer|11|Tanvi Joshi|Graphic Design|2026-10-02|60|COMPLETED|1|4.90|Learned color palettes and grid systems. Ananya is patient and very insightful.
+7|0|9|Diya Sen|5|Kavya Nair|Video Editing|2026-10-03|60|COMPLETED|1|4.85|Mastered keyframing in Premiere Pro! Super friendly mentor.
+8|1|1|Aarav Sharma|2|Priya Patel|C Programming|2026-10-15|60|SCHEDULED|0|0.00|

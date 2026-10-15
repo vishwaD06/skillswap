@@ -1,0 +1,11 @@
+# SkillSwap Requests Record File
+# ID|RequesterID|RequesterName|MentorID|MentorName|SkillName|Message|ProposedTime|Status|CreatedAt
+1|2|Priya Patel|1|Aarav Sharma|C Programming|Hey Aarav! Need help optimizing dynamic memory allocations and pointer arithmetic in C.|Tuesday 5:00 PM (Lab 3)|ACCEPTED|2026-10-10 14:30
+2|4|Ananya Iyer|1|Aarav Sharma|Data Structures and Algorithms|Hi! I want to understand Binary Search Trees and Trie prefix trees for my web app search.|Wednesday 4:30 PM (Library)|ACCEPTED|2026-10-09 11:15
+3|1|Aarav Sharma|2|Priya Patel|React|Hi Priya, would love to learn how React state management and useEffect work with REST APIs!|Thursday 6:00 PM (Online)|ACCEPTED|2026-10-08 17:00
+4|3|Rohan Verma|4|Ananya Iyer|UI/UX Design|Looking to design a cleaner dashboard for our campus robotics telemetry portal.|Friday 3:00 PM (Design Studio)|PENDING|2026-10-11 09:20
+5|7|Neha Sundaram|3|Rohan Verma|Python|Need hands-on help writing automated scripts to parse speech audio waveforms.|Saturday 2:00 PM (Online)|COMPLETED|2026-10-05 16:45
+6|16|Varun Singhania|1|Aarav Sharma|C Programming|Hello Aarav! I'm a first year student looking for guidance on pointers and linked lists.|Monday 4:00 PM (Lab 2)|PENDING|2026-10-11 18:00
+7|6|Vikram Malhotra|7|Neha Sundaram|Public Speaking|Preparing for an inter-college data presentation symposium. Could use your speech coaching!|Sunday 11:00 AM (Auditorium)|COMPLETED|2026-10-04 10:10
+8|3|Rohan Verma|5|Kavya Nair|C++|Need help with C++ STL iterators and DP|Friday 4 PM|PENDING|2026-10-12 00:31
+9|1|Aarav Sharma|2|Priya Patel|React||Thursday 5:00 PM (Campus Lab)|PENDING|2026-10-12 00:32

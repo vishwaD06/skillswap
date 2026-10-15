@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSwap – Peer-to-Peer Skill Exchange | FODS in C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div class="brand-text">
+          <h2>SkillSwap</h2>
+          <span>FODS in C</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item active"><i data-lucide="home"></i> Home</a>
+        <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="marketplace.html" class="nav-item"><i data-lucide="shopping-bag"></i> Marketplace</a>
+        <a href="requests.html" class="nav-item"><i data-lucide="git-pull-request"></i> Requests <span class="nav-badge" id="sidebar-req-badge">3</span></a>
+        <a href="leaderboard.html" class="nav-item"><i data-lucide="trophy"></i> Leaderboard</a>
+        <a href="profile.html" class="nav-item"><i data-lucide="user"></i> My Profile</a>
+        <a href="data-structures.html" class="nav-item" style="color:#a5b4fc; font-weight:600;"><i data-lucide="cpu"></i> Data Structures Lab</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="server-badge">
+          <span class="status-dot"></span> Checking C Engine...
+        </div>
+        <span class="fods-tag">Fundamentals of Data Structures<br>Course Project in C</span>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search-input" placeholder="Search skills (C Trie Autocomplete)..." autocomplete="off">
+          <div id="autocomplete-dropdown" class="autocomplete-dropdown"></div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="global-undo-btn" class="undo-btn" title="Undo recent action using C LIFO Stack">
+            <i data-lucide="undo-2"></i> Undo
+          </button>
+          
+          <div class="user-profile-menu" onclick="App.openModal('user-switch-modal')">
+            <img id="header-user-avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="user-avatar" alt="User">
+            <div class="user-info">
+              <span id="header-user-name" class="user-name">Aarav Sharma</span>
+              <span id="header-user-dept" class="user-dept">CS • Year 3</span>
+            </div>
+            <i data-lucide="chevron-down" style="color:var(--text-muted); font-size:0.9rem;"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Hero Section -->
+        <section style="background:linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); color:white; border-radius:var(--radius-xl); padding:56px 48px; position:relative; overflow:hidden; margin-bottom:36px; box-shadow:var(--shadow-lg);">
+          <div style="max-width:720px; position:relative; z-index:2;">
+            <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); padding:6px 14px; border-radius:var(--radius-full); font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.2);">
+              <i data-lucide="sparkles" style="color:#a5b4fc; font-size:1rem;"></i> Fundamentals of Data Structures (C Engine)
+            </div>
+            <h1 style="font-size:3.2rem; font-weight:800; color:white; line-height:1.15; margin-bottom:18px;">
+              Exchange Skills.<br><span style="background:linear-gradient(135deg, #a5b4fc, #e0e7ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Grow Together.</span>
+            </h1>
+            <p style="font-size:1.15rem; color:#cbd5e1; line-height:1.6; margin-bottom:32px;">
+              The premier college peer-to-peer skill-sharing platform. Teach what you know, learn what you love—completely cashless. Powered by a high-performance C algorithm engine utilizing Linked Lists, Hash Tables, Heaps, Trees, and Graphs.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:16px;">
+              <a href="marketplace.html" class="btn btn-primary btn-lg" style="background:#ffffff; color:var(--primary-dark); font-weight:700;">
+                <i data-lucide="compass"></i> Explore Skills
+              </a>
+              <button onclick="App.openModal('auth-modal')" class="btn btn-secondary btn-lg" style="background:rgba(255,255,255,0.1); color:white; border-color:rgba(255,255,255,0.25);">
+                <i data-lucide="user-plus"></i> Join SkillSwap
+              </button>
+              <a href="#how-it-works" class="btn btn-secondary btn-lg" style="background:transparent; color:#e2e8f0; border-color:transparent;">
+                How It Works <i data-lucide="arrow-down"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Hero background decor -->
+          <div style="position:absolute; right:-60px; bottom:-60px; width:360px; height:360px; background:radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%); border-radius:50%; z-index:1;"></div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="grid-4" style="margin-bottom:36px;">
+          <div class="stat-widget">
+            <div class="stat-icon indigo"><i data-lucide="users"></i></div>
+            <div class="stat-details">
+              <h3 id="stat-students">16</h3>
+              <p>Active Students</p>
+            </div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-icon purple"><i data-lucide="book-open"></i></div>
+            <div class="stat-details">
+              <h3 id="stat-skills">24</h3>
+              <p>Skills Listed</p>
+            </div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-icon emerald"><i data-lucide="check-circle-2"></i></div>
+            <div class="stat-details">
+              <h3 id="stat-exchanges">42</h3>
+              <p>Completed Exchanges</p>
+            </div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-icon amber"><i data-lucide="award"></i></div>
+            <div class="stat-details">
+              <h3 id="stat-rating">4.92 ★</h3>
+              <p>Avg Mentor Rating</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Featured Skills & Top Mentors -->
+        <section style="margin-bottom:44px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div>
+              <h2>Popular Skills on Campus</h2>
+              <p style="color:var(--text-muted); font-size:0.92rem;">Discover what fellow students are eager to teach right now</p>
+            </div>
+            <a href="marketplace.html" class="btn btn-secondary btn-sm">View All Skills <i data-lucide="arrow-right"></i></a>
+          </div>
+
+          <div class="grid-3" id="featured-skills-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" style="background:white; border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:40px; margin-bottom:44px;">
+          <div style="text-align:center; max-width:600px; margin:0 auto 36px auto;">
+            <span class="badge badge-primary" style="margin-bottom:12px;">Zero Fees • 100% Peer Learning</span>
+            <h2>How SkillSwap Works</h2>
+            <p style="color:var(--text-muted);">A simple, transparent 3-step cycle supported by Fundamentals of Data Structures algorithms.</p>
+          </div>
+
+          <div class="grid-3">
+            <div style="text-align:center; padding:20px;">
+              <div style="width:64px; height:64px; border-radius:50%; background:#e0e7ff; color:var(--primary); font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 18px auto;">
+                1
+              </div>
+              <h3 style="margin-bottom:10px;">List What You Teach & Learn</h3>
+              <p style="color:var(--text-muted); font-size:0.9rem;">Share your strengths (e.g. C, Python, Design) and target skills. Indexed instantly into C Trie & Hash Tables.</p>
+            </div>
+            <div style="text-align:center; padding:20px;">
+              <div style="width:64px; height:64px; border-radius:50%; background:#ede9fe; color:var(--accent-purple); font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 18px auto;">
+                2
+              </div>
+              <h3 style="margin-bottom:10px;">Graph-Based Matching</h3>
+              <p style="color:var(--text-muted); font-size:0.9rem;">Our C recommendation engine identifies mutual skill swaps and 1-on-1 mentor matches using graph BFS discovery.</p>
+            </div>
+            <div style="text-align:center; padding:20px;">
+              <div style="width:64px; height:64px; border-radius:50%; background:#d1fae5; color:var(--success); font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 18px auto;">
+                3
+              </div>
+              <h3 style="margin-bottom:10px;">Connect, Exchange & Rate</h3>
+              <p style="color:var(--text-muted); font-size:0.9rem;">Requests are handled in a FIFO Queue. After learning sessions, leave star reviews that feed into the Max-Heap Leaderboard.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Behind SkillSwap FODS Promo Banner -->
+        <section style="background:linear-gradient(135deg, #0f172a, #1e293b); color:white; border-radius:var(--radius-xl); padding:36px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+          <div>
+            <div style="color:#a5b4fc; font-weight:700; font-size:0.85rem; text-transform:uppercase; margin-bottom:6px;">For Academic Evaluators & FODS Viva</div>
+            <h2 style="color:white; font-size:1.8rem; margin-bottom:8px;">Behind SkillSwap: 10 Data Structures in C</h2>
+            <p style="color:#94a3b8; max-width:540px;">Explore the real C code, time complexities, and interactive demonstrations of Linked Lists, Hash Tables, Heaps, BSTs, Tries, and Graphs.</p>
+          </div>
+          <a href="data-structures.html" class="btn btn-primary btn-lg" style="background:linear-gradient(135deg, #6366f1, #8b5cf6);">
+            <i data-lucide="cpu"></i> Open Data Structures Lab
+          </a>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- User Switch Modal -->
+  <div id="user-switch-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Switch Demo Profile</h3>
+        <button class="modal-close" onclick="App.closeModal('user-switch-modal')">&times;</button>
+      </div>
+      <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:16px;">
+        Choose any of the 16 student accounts to experience SkillSwap from different perspectives:
+      </p>
+      <div id="user-switch-list" style="display:flex; flex-direction:column; gap:8px; max-height:360px; overflow-y:auto;">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Login / Register) -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="auth-modal-title">Join SkillSwap</h3>
+        <button class="modal-close" onclick="App.closeModal('auth-modal')">&times;</button>
+      </div>
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" id="auth-name-group">
+          <label>Full Name</label>
+          <input type="text" id="auth-name" placeholder="e.g. Siddharth Rao">
+        </div>
+        <div class="form-group">
+          <label>College Email</label>
+          <input type="email" id="auth-email" placeholder="name@college.edu" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" required>
+        </div>
+        <div class="form-group" id="auth-dept-group">
+          <label>Department</label>
+          <select id="auth-dept">
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Tech">Information Technology</option>
+            <option value="AI & Robotics">AI & Robotics</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Design & Media">Design & Media</option>
+            <option value="Electronics & Comm">Electronics & Communication</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Render featured skills on index
+    async function renderFeaturedSkills() {
+      const skills = await SkillSwapAPI.getSkills();
+      const grid = document.getElementById('featured-skills-grid');
+      if (!grid) return;
+
+      const featured = skills.slice(0, 6);
+      grid.innerHTML = featured.map(s => `
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+            <span class="badge badge-purple">${s.category}</span>
+            <span style="font-weight:700; color:var(--warning); font-size:0.9rem;">★ ${s.rating.toFixed(2)}</span>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:6px;">${s.name}</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:14px;">
+            Taught by <strong>${s.mentor_name}</strong> (${s.mentor_dept})
+          </p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--border-light);">
+            <span style="font-size:0.8rem; color:var(--text-muted);"><i data-lucide="clock" style="width:14px; display:inline;"></i> ${s.format}</span>
+            <a href="marketplace.html?skill=${encodeURIComponent(s.name)}" class="btn btn-primary btn-sm">Request Exchange</a>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Populate user switcher
+    async function populateUserSwitcher() {
+      const students = await SkillSwapAPI.getStudents();
+      const list = document.getElementById('user-switch-list');
+      if (!list) return;
+
+      list.innerHTML = students.map(s => `
+        <div onclick="App.switchUser(${s.id})" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; transition:var(--transition); background:white;">
+          <img src="${s.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:0.88rem;">${s.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${s.dept} • Year ${s.year} • Rating: ${s.rating.toFixed(2)}</div>
+          </div>
+          <span class="badge badge-primary" style="font-size:0.7rem;">Select</span>
+        </div>
+      `).join('');
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('auth-name').value;
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const dept = document.getElementById('auth-dept').value;
+
+      try {
+        const user = await SkillSwapAPI.register({ name, email, password, dept, year: 2, bio: 'Student on SkillSwap' });
+        App.showToast(`Account created for ${name}!`, 'success');
+        App.switchUser(user.id);
+        App.closeModal('auth-modal');
+      } catch (err) {
+        App.showToast(err.message, 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFeaturedSkills();
+      populateUserSwitcher();
+    });
+  </script>
+</body>
+</html>
